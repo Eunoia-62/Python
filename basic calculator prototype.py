@@ -14,9 +14,9 @@ def dividerem(x, y):
     return x % y
 def power(x, y): 
     return math.pow(x, y)
-def sqrt(x, y): 
+def sqrt(x): 
     return math.sqrt(x) if x >= 0 else 'Error: negative root'
-def log(x, y): 
+def log(x): 
     return math.log10(x) if x > 0 else 'Error: log of non-positive'
 
 # Using dictionary to optimist looping
@@ -50,7 +50,6 @@ while True:
             # Handle different input requirements for operations
             if choice in ['7', '8']:  # Only one number required for sqrt and log
                 num1 = float(input("Enter number: "))
-                num2 = 0  # Placeholder, as we don't need the second number
             else:
                 num1 = float(input("Enter first number: "))
                 num2 = float(input("Enter second number: "))
