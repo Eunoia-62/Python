@@ -1,58 +1,49 @@
-#add
-def add(x, y):
-    return x + y
+# Define operations
+def add(x, y): return x + y
+def subtract(x, y): return x - y
+def multiply(x, y): return x * y
+def dividequo(x, y): return x / y
+def dividerem(x, y): return x % y
 
-#subtract
-def subtract(x, y):
-    return x - y
-
-#multiply
-def multiply(x, y):
-    return x * y
-
-#divide for quotient
-def dividequo(x, y):
-    return x / y
-
-#didive for reminder
-def dividerem(x, y):
-    return x % y
+# Mapping of menu choices to operations and labels
+operations = {
+    '1': ('Add', add),
+    '2': ('Subtract', subtract),
+    '3': ('Multiply', multiply),
+    '4': ('Divide (Quotient)', dividequo),
+    '5': ('Divide (Remainder)', dividerem)
+}
 
 while True:
-    # take input from the user
-    choice = input("""Select operation:
-1.Add
-2.Subtract
-3.Multiply
-4.Divide(Quotient)
-5.Divide(Reminder)
-Enter choice(1/2/3/4/5): """)
+    # Show operation menu
+    print("\nSelect operation:")
+    for key in operations:
+        print(key + ". " + operations[key][0])
 
-    # check if choice is one of the five options
-    if choice in ('1', '2', '3', '4', '5'):
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
+    choice = input("Enter choice (1/2/3/4/5): ").strip()
 
-        if choice == '1':
-            print("sum = ",add(num1, num2))
+    if choice in operations:
+        try:
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+        except ValueError:
+            print("Invalid input. Please enter numeric values.")
+            continue
 
-        elif choice == '2':
-            print("difference = ",subtract(num1, num2))
+        op_name = operations[choice][0]
+        op_func = operations[choice][1]
 
-        elif choice == '3':
-            print("product = ",multiply(num1, num2))
+        # Check for division by zero
+        if op_func in [dividequo, dividerem] and num2 == 0:
+            print("Error: Cannot divide by zero.")
+        else:
+            result = op_func(num1, num2)
+            print(op_name + " result = " + str(result))
 
-        elif choice == '4':
-            print("quotient = ",dividequo(num1, num2))
-            
-        elif choice == '5':
-            print("reminder = ",dividerem(num1, num2))
-        
-        # check if user wants another calculation
-        # break the while loop if answer is no
-        next_calculation = input("continue? (yes/no): ")
-        if next_calculation == "no":
-          break
-    
+        # Continue or exit
+        next_calculation = input("Continue? (yes/no): ").strip().lower()
+        if next_calculation != "yes":
+            print("Goodbye!")
+            break
     else:
-        print("Invalid Input")
+        print("Invalid input. Please enter a number from the menu.")
